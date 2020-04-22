@@ -1,0 +1,48 @@
+\newpage
+\section{Question 7}
+\subsection{Problem:}
+You and your classmates have looked carefully at the SSTF disk scheduling then went through
+an argument, where some indicated that the scheme will have very negative side effects and so it must
+not be considered, while the others indicated that it will produce superior performance compared to the
+other available schemes and hence it should be used.
+
+\subsection{Choose side for argument about SSTF disk scheduling}
+\textbf{Problem:} \\
+Which side are you with? Explain why? your answer should not exceed $\frac{1}{4}$ a page. \\
+
+\textbf{Answer:} \\
+I agree with the side that saying SSTF disk scheduling have very negative side effects because of :
+\begin{itemize}
+    \item Starvation of some requests.
+    \item Overhead.
+\end{itemize}
+
+\subsection{Reasons behind 2 supporting and rejecting SSTF}
+\textbf{Problem:} \\
+Understanding that technique, explain clearly what are the details/reasons behind both
+support and rejection by the classmates. your answer should not exceed $\frac{1}{2}$ a page. \\
+
+\textbf{Answer:}
+\subsubsection{Supporting SSTF disk scheduling}
+\begin{itemize}
+    \item \textbf{Better seek time: }SSTF has a much better average seek time, in compared with other algorithms, especially FCFS scheduling since SSTF opts for the shortest seek time first while FCFS will go sequentially.
+    \item \textbf{Shorter waiting time: } The request which has shortest time is served first; therefore, the waiting time is minimized.
+\end{itemize}
+
+\subsubsection{Rejecting SSTF disk scheduling}
+\begin{itemize}
+    \item \textbf{Starvation of some requests} SSTF might lead to potential starvation when it comes to requests that take more seek time than others. SSTF serves the shortest seek time request first, and might miss the requests with higher seek time. Thus, it does not serve every request.
+    \item \textbf{Overhead: } SSTF has to know the seek time to every request from its current location in advance to determine which request it should serve first. The mechanism leads to overhead for the calculation. 
+\end{itemize}
+
+\subsection{New constraints apply}
+\textbf{Problem:} \\
+Assume that priority is needed, where the requests should be served on a local area on the
+disk (that is, particular tracks at a local part of the disk are more important than others and
+hence they need to execute first). Based on these new constraints, would your answer from
+(i) above change? Explain clearly why or why not. your answer should not exceed $\frac{1}{2}$ a page.
+
+\textbf{Answer:} \\
+My answer from (i) would change to supporting SSTF in this case. Since particular track at a local part of the disk is prioritized, SSTF can use its advantage of serving request with shortest seek time. Thus, once the head reaches a part of the local area, the local requests in that part will be served first as they are closest to the head at that time.
+
+

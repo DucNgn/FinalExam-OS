@@ -1,0 +1,242 @@
+\newpage
+\section{Question 2}
+
+\subsection{Problem:}
+Given the following code, where id indicates a process number (or ID), launch() indicates concurrent start
+of the processes passed on its parameters, and N is an integer representing the number of processes that
+will be launched (i.e. processes that will run on that system).
+
+\begin{lstlisting}
+boolean blocked[N];
+for(int i = 0; i < N; i++)
+ blocked[i] = false.
+int turn = 0;
+int other;
+P(int id)
+{
+while(true)
+{
+ blocked[id] = true;
+ while(turn != id)
+ {
+if(id == 0 || id == 2)
+ other = 1;
+else
+ other = 0;
+ while(blocked[other]) { turn = other;}
+turn = id;
+ }
+ /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+ blocked[id] = false;
+}
+}
+\end{lstlisting}
+
+\subsection{launch(P(0), P(1))}
+\subsubsection{Mutual exclusion}
+The program achieves mutual exclusion since there is no possible outcome in which more than 1 thread enters the Critical Session at once. 
+
+\subsubsection{Good progress}
+The program achieves good progress since it manages to continue execution on time without any delay.
+
+\subsubsection{Deadlock-free}
+The program is deadlock-free since there is no possible outcome in which deadlock happens and fails the solution.
+
+\newpage
+\subsection{launch(P(0), P(1), P(2))}
+\subsubsection{Mutual exclusion}
+The program will not achieve \textbf{mutual exclusion}. One scenario is as following:
+
+\begin{lstlisting}
+ //.. Running P(0)
+P(int id)
+{
+    while(true)
+    {
+         blocked[id] = true;
+         while(turn != id)
+         {
+            // .. By pass the while loop because turn = id
+         }
+         /* > > > > > > Interruption happens < < < < < < */
+         /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+         blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+The current global variables are as following:
+\begin{lstlisting}
+/* global values at the time */
+blocked[0] = true
+blocked[1] = false
+blocked[2] = false
+turn = 0
+other = null
+\end{lstlisting}
+
+The process P(2) starts:
+\begin{lstlisting}
+// Continue from the interruption of P(0)
+//.. Running P(2)
+P(int id) {
+    while(true) {
+         blocked[id] = true; // blocked[2] = true
+         while(turn != id)
+         {
+            if(id == 0 || id == 2)
+             other = 1;      // other = 1
+            else
+             other = 0;      
+             while(blocked[other]) { turn = other;}  // By pass the while loop as blocked[1] = false
+            turn = id;      // turn = 2
+     }
+     /* EXECUTE CRITICAL SESSION AT THE SAME TIME AS P(0) */
+     /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+     blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+\textbf{Explaination:} \\
+As the scenario can happen, P(1) and P(2) might get into the critical session at the same time; thus, the code is not mutual exclusion.
+
+\subsubsection{Good progress}
+If there is no deadlock, the program would achieve good progress since it continues to run without delays
+
+\newpage
+\subsubsection{Deadlock-free}
+Consider the scenario:
+
+\begin{lstlisting}
+ //.. Running P(0)
+P(int id)
+{
+    while(true)
+    {
+         blocked[id] = true;
+         while(turn != id)
+         {
+            // .. By pass the while loop because turn = id
+         }
+         /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+         /* > > > > > > Interrupted by P(1) < < < < < < */
+         blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+The current global variables are as following:
+\begin{lstlisting}
+/* global values at the time */
+blocked[0] = true
+blocked[1] = false
+blocked[2] = false
+turn = 0
+other = null
+\end{lstlisting}
+
+P(1) starts:
+\begin{lstlisting}
+// Continue from the interruption of P(0)
+//.. Running P(1)
+P(int id) {
+    while(true) {
+         blocked[id] = true; // blocked[1] = true
+         while(turn != id)
+         {
+            if(id == 0 || id == 2)
+             other = 1;      
+            else
+             other = 0;      // other = 0
+            /* > > > > > > Interrupted by P(2) < < < < < < */
+             while(blocked[other]) { turn = other;}  
+            turn = id;      
+     }
+     /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+     blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+
+The current global variables are as following:
+\begin{lstlisting}
+/* global values at the time */
+blocked[0] = true
+blocked[1] = true
+blocked[2] = false
+turn = 0
+other = 0
+\end{lstlisting}
+
+P(2) starts:
+\begin{lstlisting}
+// Continue from the interruption of P(1)
+//.. Running P(2)
+P(int id) {
+    while(true) {
+         blocked[id] = true; // blocked[2] = true
+         while(turn != id)
+         {
+            if(id == 0 || id == 2)
+             other = 1;      // other = 1
+            else
+             other = 0;      
+            /* > > > > > > Interrupted by P(1) < < < < < < */
+             while(blocked[other]) { turn = other;}  
+            turn = id;      
+     }
+     /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+     blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+The current global variables are as following:
+\begin{lstlisting}
+/* global values at the time */
+blocked[0] = true
+blocked[1] = true
+blocked[2] = true
+turn = 0
+other = 1
+\end{lstlisting}
+
+P(1) resumes:
+\begin{lstlisting}
+// Resume from the interruption in P(2)
+//.. Running P(1)
+P(int id) {
+    while(true) {
+         blocked[id] = true; 
+         while(turn != id)
+         {
+         // .. .. ..
+            /* > > > > > > Resume from the last in terruption < < < < < < */
+             while(blocked[other]) { turn = other;}   // turn = 1  < - - - DEAD-LOCK
+            turn = id;      
+     }
+     /* <<<< CRITICAL SECTION IS EXECUTED HERE>>>>>> */
+     blocked[id] = false;
+    }
+}
+\end{lstlisting}
+
+The current global variables are as following:
+\begin{lstlisting}
+/* global values at the time */
+blocked[0] = true
+blocked[1] = true
+blocked[2] = true
+turn = 1
+other = 1
+\end{lstlisting}
+
+\textbf{Explaination} \\
+As a matter of fact, the while loop in P(1) will start the dead lock. 
+\begin{itemize}
+    \item If P(2) resumes from its last interruption, it will run the same while-loop as P(1).
+    \item If P(0) resumes from its last interruption, it will execute the critical session and then get to the same while-loop as P(1) has
+\end{itemize}
+This scenario produces a possible dead lock situation of the code. Therefore, the code does not achive deadlock-free if \textbf{launch} is called as: \textbf{launch(P(0), P(1), P(2))}.

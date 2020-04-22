@@ -1,0 +1,25 @@
+\newpage
+\section{Question 3}
+\subsection{Problem:}
+As a part of a development team in an Operating Systems company, your team was given the sole
+responsibility of looking at solutions to the Deadlock problem. After a large research in the subject, here
+is what your team (after being divided into smaller sub-teams) came up with as possible solutions. Team
+1, Team 2 and Team 3 proposed i, ii, and iii, respectively.
+
+\begin{itemize}
+    \item Roll-Back and Random
+    \item Release-All and Restart Differently
+    \item Terminate and Revert to Limited Uni-programming 
+\end{itemize}
+
+\subsection{Support team}
+The team that I would support is team ii) with the solution to release-all and restart Differently.
+
+\subsection{Reasons to support}
+Firstly, it would be simple to kill all the processes that involved in a deadlock. After that, tall the process will be restarted in different order. With a great number of resources and processes, the possible combination is huge; thus, the chance of getting a deadlock is reduced. Although the disadvantage of this solution is that all the partial computations in the previous processes will be discarded. However, the computation can be re computed in the new cycle.
+
+\subsection{Reasons to reject}
+\begin{itemize}
+    \item \textbf{Roll-Back and Random}: The solution is unpredictable in term of timing since each roll back time, the deadlock detection algorithm has to be executed to find deadlock once again to determine whether or not it should roll back one more time. Resulting in a great time complexity if the number of processes is large.
+    \item \textbf{Terminate and Revert to Limited Uni-programming:} The solution has the same risk of encounter a deadlock once again as ii) since the possible combination of resource allocation does not change. However, with Limiter Uni-programming, the processes will execute in a much slower speed, and significantly increases the time it needed to restart and complete all the computations, compared to multiprogramming.
+\end{itemize}

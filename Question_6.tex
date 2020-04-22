@@ -1,0 +1,20 @@
+\newpage
+\section{Question 6}
+\textbf{Problem:}
+Linked lists allocation can be used to keep track of allocated blocks of a file system, as well as to
+keep track of unallocated blocks. Assume that the probability of pointer corruption in the system
+is assumed to be very small, and hence negligible. \\
+For each of these two allocation schemes, and considering the given constraints/conditions of the
+system, indicate if it is possible to safely and efficiently use linked-list allocation for these two
+types of allocation? your answer should not exceed $\frac{1}{2}$ a page.
+
+\subsection{Linked lists allocation for allocated blocks}
+With the constraints that pointer corruption in the system can be negligible, it is safely to use linked-list allocation for allocated blocks since there will be no situation results in lost data. \\
+However, it is arguably to consider linked list allocation implementation in term of efficiently. Since each storage block can be scattered anywhere on the disk, it would take more time for disk seeks and I/O than other methods for tracing the pointers to locate the requested block of a file. 
+Moreover, linked-list allocation does not support direct access capability. To locate a block, it has to be traversed sequentially from the beginning of the file. \\
+
+\subsection{Linked lists allocation for unallocated blocks}
+In this case, it is safe for linked-list allocation to be used. Each time the system wants to allocate a block, the linked list holding unallocated blocks can release one and move the pointer to the next free block. \\
+However, the efficient disadvantage remains the same as mentioned before, even though the speed is mostly faster than usual access block because the list only has to trace the pointer once. Thus, it is slightly inefficent than other methods.
+
+

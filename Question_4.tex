@@ -1,0 +1,51 @@
+\newpage
+\section{Question 4}
+
+\subsection{Multiple threads provides an advantage over single thread}
+\textbf{Problem:} \\
+Explain whether using multiple threads would really provide an advantage over using just a
+single thread. You need to explain and justify your answer for the most optimal solution (best
+case), as well as for worst case and the average case. \\
+
+\textbf{Answer:} \\
+Let i denote the number of iteration / look-up until the searching operation terminates (found the targeted element or the targeted element does not exist inside the array). \\
+Let m denote the number of elements inside the array. \\
+\textbf{Note:} 
+\begin{itemize}
+    \item Assuming multiple threads with at least 2 threads, each thread searches half of the array.
+    \item Assuming 5ns is the time for a single time of looping. Meaning if the array contains n elements, it takes 5n (ns) to look up the whole array.
+\end{itemize}
+
+\subsubsection{Best case scenario}
+Best case scenario happens when the searching element is at the beginning of the array; hence, single thread with sequential search will find it in i = 1 $\implies \text{time} = 5ns$. \\
+With multiple threads, one of the two threads starts and found the result in i = 1, meaning time = 5ns.
+
+\subsubsection{Average case scenario}
+With single thread, average case scenario would be when the searching element is at exactly middle of the array. \\
+$\implies i = \frac{m}{2}$. Thus, the look up time is $\frac{5m}{2} (ns)$  \\
+With multiple thread (with the assumptions), the average case scenario is also when the searching element is at the middle of the array. \\
+$\implies i = \frac{m}{2}$ since each thread searches one half of the array. However, using multiple thread with Round-Robin scheduling means the operation has to also accommodate context switch time (1 ms each) \\
+$\implies \text{time} = \frac{5m}{2} + \text{total context switch time}  \text{(ns)} $\\
+
+\subsubsection{Worst case scenario}
+Worst case scenario happens when the targeted element does not exist in the array \\
+Thus, single thread operation will sequentially loop through every single element inside the array. Resulting in a total time of 5n (ns). \\
+While with multiple thread operation, the total time is 
+$\implies \text{time} = \frac{5m}{2} + \text{total context switch time}  \text{(ns)} $\\
+
+\textbf{Note:} It is also noticeable that multiple thread programming can use more than 2 threads, 2 threads are the least number.
+
+\subsubsection{Conclusion}
+\begin{itemize}
+    \item In the best scenario, multi threading has the same completed time as single thread.
+    \item In the average scenario, multi threading is slower than single thread the total context switch time. However, this can be reduced if there are more threads covers in the right area of the array.
+    \item In the worst scenario, multi threading shows a much greater performance when the data is huge.
+\end{itemize}
+Therefore, using multiple threads would really provide an advantage over using just a single thread.
+
+
+\subsection{Example showing benefit of multi-threading in a single CPU environment}
+Web browser operation is an example of benefits of multi-threading. Web browser often has to several operations at the same time. Multi threading can solve the problem so that each tab or instance of the browser might run different job.
+
+
+

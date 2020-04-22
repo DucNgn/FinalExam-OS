@@ -1,0 +1,62 @@
+\newpage
+\section{Question 8}
+
+\subsection{Implementation of Belady Optimal Algorithm}
+\textbf{Problem:} \\
+a. Concerning page replacement; is it possible to implement Belady Optimal algorithm, or
+even an approximation of it? If yes, explain how this can be done; if no, explain why it is
+not feasible to implement this algorithm. \\
+
+\textbf{Answer} \\
+It is impossible to implement Belady Optimal Algorithm because there is no way to know ahead the number of page faults will be generated and the number of frames are allocated.
+
+\subsection{Implementation of LRU algorithm}
+\textbf{Problem:} \\
+b. It is indeed possible to implement LRU algorithm for page replacement. Outline a
+procedure/algorithm for implementing this algorithm efficiently. If you believe your
+algorithm is efficient, clearly explain why you think so (give strong supportive arguments).
+If your algorithm is not efficient, explain why it is not (keep in mind that the question is
+requesting you to implement an efficient algorithm.) \\
+
+\textbf{Answer:} \\
+\begin{lstlisting}
+int capacity = 5; // can be any number
+int[] arr = { .. } // The array containing page references
+
+int findNumberOfPageFault(int capacity, int[] arr):
+    ArrayList a [capacity];
+    int count = 0;
+    int numOfPageFaults = 0;
+
+    for(int i : arr): {
+        if(a.contains(i) == false) {
+            if(a.size == capacity) {
+                a.remove(0);   // Remove the element at index 0
+                a.add(capacity-1, i) // Add a new element, shifting all the other elements 1 index away
+            } else {
+                //Found page fault
+                a.add(count, i) 
+                numOfPageFaults++;
+                count++;
+            }
+
+        } else {
+            a.remove(i); // i is the object, not the index
+            a.add(a.size, i)
+        }
+    }
+    return numOfPageFaults;
+\end{lstlisting}
+
+\subsection{Internal fragmentation}
+\textbf{Problem:} \\
+Assume that the size of an executable file of a process is evenly divided by the page size
+(for example, size is 700 and page size is 100, so you have exactly 7 pages). Assume also
+that we are not interested in external fragmentation and that LFU algorithm, where 3 frames
+are allocated for the process, is used. Under these conditions, is there anyway that the
+system suffers from internal fragmentation? Explain your answer very clearly.
+
+\textbf{Answer:} \\
+Since the size of the executable file is evenly divided by the page size, there is no way for system to have internal fragmentation.\\ Internal fragmentation only happens when there is one page with an odd size than others; therefore, that causes internal fragmentation when it is placed on main memory.
+
+

@@ -1,5 +1,6 @@
-\documentclass[a4paper]{article}
+\documentclass[12pt]{article}
 
+\usepackage{pdfpages}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{amsthm}
@@ -9,6 +10,33 @@
 \usepackage{xifthen}
 \usepackage{transparent}
 \usepackage[affil-it]{authblk}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+
+\graphicspath{{./Images/}}
+%set
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 \title{COMP 346: Operating Systems \\
 Final Exam}
@@ -26,13 +54,14 @@ Final Exam}
 \newpage
 
 \input{Question_1}
-\input{Question_2}
-\input{Question_3}
+\input{Question_2} %-- done
+\input{Question_3} %-- done
 \input{Question_4}
 \input{Question_5}
-\input{Question_6}
-\input{Question_7}
-\input{Question_8}
-\input{Question_9}
-\input{Question_10}
+\input{Question_6} %-- done
+\input{Question_7} %-- done
+\input{Question_8} %-- done
+\input{Question_9} %-- done
+\input{Question_10} %-- done
+
 \end{document}

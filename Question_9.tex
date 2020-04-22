@@ -1,0 +1,52 @@
+\newpage
+\section{Question 9}
+
+\subsection{Problem:}
+Consider a demand-paged system that has a fast associative memory (TLB, or cache). To speed up access
+to pages, it is desired to place the page table in the cache. However, since the page table of a process is
+too large, the system included only the first 20\% of the page table in the cache, 30\% in the main memory,
+and the rest of the table had to be kept in the secondary memory (i.e. page faults may be needed for the
+page table itself!). Consider uniform request for each of the pages (i.e. each page is requested more or less
+the same amount of times). To simplify the calculations, assume that cache reference costs 30 ms
+(milliseconds), memory access costs 200 ms, and page fault time costs 900 ms if the fault is for the page
+table, and 2 seconds if the fault is for a page. The page fault time for a page includes exactly the following:
+obtaining the page from the secondary memory, possible swapping, and updating the page table. 
+
+\subsection{Average effective access time for a page}
+\textbf{Problem:} \\
+What is the average effective access time for a page, if that page is in the main memory? \\
+Explain clearly; you must show all your calculations; and provide the exact final answer. \\
+
+\textbf{Answer:} \\
+
+\begin{itemize}
+    \item If cache hits, then access cache to look up the TLB 
+    \item If cache misses, then try accessing main memory. 
+    \item If main memory hits, then access main memory and look up the TLB
+    \item If main memory misses $\implies$ it is a page fault for the page table
+    \item $\alpha$ : Cache hit ratio
+    \item $\beta$ : Main memory hit ratio
+
+\end{itemize}
+
+\begin{align*}
+    \text{TLB SEARCH TIME} =  (\alpha)*(\text{Cache access time}) + \\
+    ( 1 - \alpha )(\beta * \text{Memory access time} + (1-\beta)*\text{page fault}) \\
+    = (0.2)(30) + (1 - 0.2)[0.3 * 200 + 0.7 * 900] \\
+    = 558 ms (milliseconds) \\
+    \implies \text{Average EAT} = \text{TLB SEARCH TIME} + \text{Memory access time} \\
+    = 558 + 200 \\
+    = 758 ms.
+\end{align*}
+
+\subsection{Average effective access time for a page if page is NOT in main memory}
+What is the average effective access time for a page, if that page is NOT in the main memory? \\
+Explain clearly; you must show all your calculations; and provide the exact final answer. \\
+
+Since the page is not in main memory, it leads to a page fault for a page. \\
+\textit{Note:} 2 seconds = 2000ms
+\begin{align*}
+    \implies \text{Average EAT} = \text{TLB SEARCH TIME} + \text{Page fault time} \\
+    = 558 + 2000 \\
+    = 2558 ms.
+\end{align*}
